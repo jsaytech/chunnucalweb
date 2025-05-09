@@ -542,22 +542,28 @@
         document.getElementById('continue-shopping-btn').addEventListener('click', function() {
             document.getElementById('cart-modal').style.display = 'none';
         });
+// Checkout
+document.getElementById('checkout-btn').addEventListener('click', function() {
+    if (cart.length === 0) {
+        alert('Your cart is empty. Please add products before checking out.');
+        return;
+    }
 
-        // Checkout
-        document.getElementById('checkout-btn').addEventListener('click', function() {
-            if (cart.length === 0) {
-                alert('Your cart is empty. Please add products before checking out.');
-                return;
-            }
-            
-            alert('Thank you for your order! Proceeding to payment...');
-            // In a real application, you would redirect to a payment page
-            // For now, we'll just clear the cart
-            cart = [];
-            localStorage.setItem('cart', JSON.stringify(cart));
-            updateCartCount();
-            document.getElementById('cart-modal').style.display = 'none';
-        });
+    // Save cart data to localStorage so it can be accessed in checkout.html
+    localStorage.setItem('chunnacalOrder', JSON.stringify(cart));
+
+    // Clear the current cart
+    cart = [];
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartCount();
+
+    // Close the cart modal
+    document.getElementById('cart-modal').style.display = 'none';
+
+    // Redirect to checkout page
+    window.location.href = 'checkout.html';
+});
+
 
         // Add to Cart functionality
         const addToCartButtons = document.querySelectorAll('.add-to-cart');
